@@ -1,12 +1,14 @@
 # OOP_2021_Ex2
 
 Project:
+
 this project represents an directional and weighted graph that support a large number of nodes,
 based on afficient cimpact representation. The project contains 1 part: api - the data struct
 and the algorithms methods.
 
 
-Classes
+Classes:
+
 GeoLocaionAlgo: implemants GeoLocaion interface represent an 3D point
 
 EdgeDataAlgo: implemants EdgeData interface 
