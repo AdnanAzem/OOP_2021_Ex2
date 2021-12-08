@@ -3,22 +3,22 @@ package api;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class NodeDataAlgo implements NodeData{
+public class NodeDataAlgo implements NodeData , Comparable<NodeData>{
 
     private  double weight;
     private String info;
     private int tag,key;
     private GeoLocation location;
-    private HashMap<Integer,NodeData> hmp;//this hash map are for the neighbors
-    private HashMap<Integer,Double> weighth;//this hashmap use between two nodes or more that have the weighte between .
+    private HashMap<Integer, EdgeData> outEdges;
+    private HashMap<Integer, EdgeData> inEdges;
 
     public NodeDataAlgo(int key) {
         this.key = key;
         this.tag = 0;
         this.info = "";
         this.weight=0;
-        this.hmp = new HashMap<Integer, NodeData>();
-        this.weighth=new HashMap<Integer, Double>();
+        this.inEdges = new HashMap<Integer, EdgeData>();
+        this.outEdges=new HashMap<Integer, EdgeData>();
     }
 
     public NodeDataAlgo(GeoLocation pos, int id){
@@ -27,11 +27,15 @@ public class NodeDataAlgo implements NodeData{
         this.weight = 0;      //default
         this.info = "";      //default
         this.tag = 0;       //default
-        this.hmp = new HashMap<Integer, NodeData>();
-        this.weighth=new HashMap<Integer, Double>();
+        this.inEdges = new HashMap<Integer, EdgeData>();
+        this.outEdges=new HashMap<Integer, EdgeData>();
     }
 
-    public void setKey(int k) { this.key = k; }
+    public NodeDataAlgo(int key, GeoLocation location){
+        this.key = key;
+        this.location = new GeoLocationAlgo(location);
+    }
+    
 
     @Override
     public int getKey() {
@@ -74,27 +78,13 @@ public class NodeDataAlgo implements NodeData{
         this.tag = t;
     }
 
-    public void removeNode(NodeData node) {
-        if(node !=null) this.hmp.remove(node.getKey(),node);
-    }
 
-    //this method i added that she tell me all the nodes in collection (the neighbors).
-    public Collection<NodeData> getNi() {
-        return this.hmp.values();
+    @Override
+    public int compareTo(NodeData o) {
+        if(this.getWeight()-o.getWeight()>0) return 1;
+        else if(this.getWeight()-o.getWeight()<0) return -1;
+        return 0;
     }
-    //this method ask if have a neighbors to specific key that i have + i put the key in the node and ask .
-    public boolean hasNi(int key) {
-        if(this.hmp.containsKey(key)) return true ;
-        return false;
-    }
-    //this method add the node to the neighbors in tha hash mao neighbors.
-    public void addNi(NodeData t) {
-        if(t!=null)
-            this.hmp.put(t.getKey(),t);
-    }
-
-    public HashMap<Integer, Double> getWeighth() {
-        return this.weighth;
-    }
-
 }
+
+
