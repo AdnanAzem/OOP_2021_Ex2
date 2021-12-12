@@ -1,5 +1,9 @@
 # OOP_2021_Ex2
 
+Directed Wieghted Graph:
+![DWG](https://user-images.githubusercontent.com/88532380/145715653-ba32db47-5d88-4293-a449-5cc6a5711977.png)
+
+
 Project:
 
 this project represents an directional and weighted graph that support a large number of nodes,
