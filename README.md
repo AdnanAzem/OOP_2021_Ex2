@@ -58,5 +58,9 @@ DirectedWeightedGraphAlgorithms: This interface represents a Directed (positive)
 		save: save the graph to the given file name in JSON format
 		load: load a graph to this graph algorithm by JSON format
 
+Results:
+
+[Results.pdf](https://github.com/AdnanAzem/OOP_2021_Ex2/files/7698869/Results.pdf)
+
 
 
