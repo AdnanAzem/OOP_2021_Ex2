@@ -14,6 +14,29 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DirectedWeightedGraphAlgorithmsAlgoTest {
+    DirectedWeightedGraphAlgorithmsAlgo algo = new DirectedWeightedGraphAlgorithmsAlgo();
+
+    @Test
+    void init() {
+        algo.init(small_graph());
+        assertNotNull(algo.getGraph());
+    }
+
+    @Test
+    void getGraph() {
+        algo.init(small_graph());
+        assertNotNull(algo.getGraph());
+    }
+
+    @Test
+    void center() {
+        algo.init(Sun_graph());
+        System.out.println("center is: " + algo.center());
+        assertEquals(null,algo.center());
+        algo.init(build_graph());
+        System.out.println("center is: "+ algo.center());
+        assertEquals(null,algo.center());
+    }
 
     @Test
     void copy() {
@@ -255,7 +278,6 @@ class DirectedWeightedGraphAlgorithmsAlgoTest {
             }
         }
 
-
         nodeList = graphAlgo.shortestPath(7, 4);
         assertEquals(7, nodeList.get(0).getKey());
         assertEquals(5, nodeList.get(1).getKey());
@@ -315,6 +337,25 @@ class DirectedWeightedGraphAlgorithmsAlgoTest {
         Assertions.assertTrue(graphAlgo.load("data/G1.json"));
         Assertions.assertTrue(graphAlgo.load("data/G2.json"));
         Assertions.assertTrue(graphAlgo.load("data/G3.json"));
+    }
+
+    private DirectedWeightedGraph build_graph(){
+        DirectedWeightedGraph graph = new DirectedWeightedGraphAlgo();
+        NodeData node;
+        for(int i = 0 ; i <= 1500; i++){
+            node = new NodeDataAlgo(i);
+            graph.addNode(node);
+        }
+
+        for (int i = 0 ; i < 3; i++){
+            graph.connect(i,i+1,Math.random());
+        }
+
+        for (int i = 3 ; i > 0; i--){
+            graph.connect(i,i-1,Math.random());
+        }
+
+        return graph;
     }
 
     private DirectedWeightedGraph simple_graph(){
