@@ -1,10 +1,11 @@
 package GUI;
 
-import GUI.label.Label_ConnectNode;
+import GUI.label.*;
 import api.DirectedWeightedGraphAlgorithms;
 //import GUI.label.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -16,9 +17,9 @@ import java.io.File;
  */
 public class Jframe extends JFrame implements ActionListener {
     JMenuBar menuBar;
-    JMenu fileMenu,editMenu,helpMenu;
-    JMenuItem loadItem,saveItem,exitItem,RemoveNodeItem,RemoveEdgeItem,ConnectNodeItem,AddNodeItem,helptItem,ShortestPathDistItem,
-            ExplanationverticesItem,ShortestPathItem,TspItem;
+    JMenu fileMenu,editMenu;
+    JMenuItem loadItem,saveItem,exitItem,RemoveNodeItem,RemoveEdgeItem,ConnectNodeItem,AddNodeItem,ShortestPathDistItem,
+            ExplanationverticesItem,ShortestPathItem;
     Graphs g;
     private DirectedWeightedGraphAlgorithms Algo;
     public Jframe(DirectedWeightedGraphAlgorithms graph){
@@ -41,44 +42,38 @@ public class Jframe extends JFrame implements ActionListener {
         //Add a name to item label
         fileMenu = new JMenu("File");
         editMenu = new JMenu("Edit");
-        helpMenu = new JMenu("Help");
 
         //Add a name to item label
-        loadItem = new JMenuItem("Load");
         saveItem = new JMenuItem("Save");
+        loadItem = new JMenuItem("Load");
         exitItem = new JMenuItem("Exit");
+
+        AddNodeItem=new JMenuItem("Add Node");
+        ConnectNodeItem=new JMenuItem("Connect Nodes");
         RemoveNodeItem = new JMenuItem("Remove Node");
         RemoveEdgeItem = new JMenuItem("Remove Edge");
-        ConnectNodeItem=new JMenuItem("Connect 2 Nodes");
-        AddNodeItem=new JMenuItem("Add Node");
         ShortestPathItem=new JMenuItem("Shortest Path List");
-        TspItem=new JMenuItem("Tsp List");
         ShortestPathDistItem=new JMenuItem("Shortest path sum");
+
         ExplanationverticesItem=new JMenuItem("Vertex information");
-        helptItem=new JMenuItem("explanation");
 
         //Add secondary buttons to file
-        fileMenu.add(loadItem);
         fileMenu.add(saveItem);
+        fileMenu.add(loadItem);
         fileMenu.add(exitItem);
 
         //Add secondary buttons to edit
+        editMenu.add(AddNodeItem);
+        editMenu.add(ConnectNodeItem);
         editMenu.add(RemoveNodeItem);
         editMenu.add( RemoveEdgeItem);
-        editMenu.add(ConnectNodeItem);
-        editMenu.add(AddNodeItem);
-        editMenu.add(TspItem);
         editMenu.add(ShortestPathDistItem);
         editMenu.add(ShortestPathItem);
 
-        //Add secondary buttons to help
-        helpMenu.add(ExplanationverticesItem);
-        helpMenu.add( helptItem);
 
         //Add main buttons
         menuBar.add(fileMenu);
         menuBar.add(editMenu);
-        menuBar.add(helpMenu);
 
         //Listen to the buttons
         loadItem.addActionListener(this);
@@ -88,10 +83,9 @@ public class Jframe extends JFrame implements ActionListener {
         RemoveEdgeItem.addActionListener(this);
         ConnectNodeItem.addActionListener(this);
         AddNodeItem.addActionListener(this);
-        helptItem.addActionListener(this);
+
         ShortestPathDistItem.addActionListener(this);
         ExplanationverticesItem.addActionListener(this);
-        TspItem.addActionListener(this);
         ShortestPathItem.addActionListener(this);
 
         //Insert the button
@@ -100,10 +94,9 @@ public class Jframe extends JFrame implements ActionListener {
 
     //Large screen
     private void initFrame() {
-        //  Dimension dimension =Toolkit.getDefaultToolkit().getScreenSize();
-      //  this.setSize(1000,400);
         this.setSize(1000,800);
-        // this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        ImageIcon m = new ImageIcon("./DG.png");
+        this.setIconImage(m.getImage());
         this.setUndecorated(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -130,8 +123,7 @@ public class Jframe extends JFrame implements ActionListener {
                 }catch (Exception ex) {ex.printStackTrace();  }
             }
         }
-
-
+        
         // sava
         if(e.getSource()==saveItem) {
             JFileChooser fc=new JFileChooser();
@@ -151,64 +143,38 @@ public class Jframe extends JFrame implements ActionListener {
         if(e.getSource()==exitItem) {
             System.exit(0);
         }
-/*
+
 
         //Remove Node
         if(e.getSource()== RemoveNodeItem){
-            new Label_RemoveNode(this.Algo);
+            new RemoveNodeLabel(this.Algo);
         }
 
         //Remove Edge
-        if(e.getSource()==  RemoveEdgeItem){
-            new Label_RemoveEdge(this.Algo);
+        if(e.getSource() == RemoveEdgeItem){
+            new RemoveEdgeLabel(this.Algo);
 
         }
-
- */
 
         //Connect Node
         if(e.getSource()==ConnectNodeItem){
-            new Label_ConnectNode(this.Algo);
-        }
-/*
-        //Add Node
-        if(e.getSource()== AddNodeItem){
-            new Label_AddNode(this.Algo);
+            new ConnectNodeLabel(this.Algo);
         }
 
-        //help - explanation
-        if( e.getSource()== helptItem){
-            new Label_help().explanation();
+        //Add Node
+        if(e.getSource()== AddNodeItem){
+            new AddNodeLabel(this.Algo);
         }
 
         //Shortest Path Dist
         if(e.getSource()==ShortestPathDistItem){
-            new Label_ShortestPathDist(this.Algo);
+            new ShortestPathDistLabel(this.Algo);
 
-        }
-
-        //Explanationvertices
-        if(e.getSource()==ExplanationverticesItem){
-            new Label_help().Explanationvertices(this.Algo);
-        }
-
-        //tsp
-        if(e.getSource()==TspItem){
-            new Label_Tsp(this.Algo);
         }
 
         //Shortest Path
         if(e.getSource()==ShortestPathItem){
-            new Label_ShortestPath(this.Algo);
+            new ShortestPathLabel(this.Algo);
         }
-
- */
-
-
     }
-
-
-
-
-
 }
