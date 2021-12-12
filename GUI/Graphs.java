@@ -38,24 +38,27 @@ public class Graphs extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D gd = (Graphics2D) g;
-        gd.setStroke(new BasicStroke(2.8f));
+
+        gd.setStroke(new BasicStroke(1f));
         g.setFont(new Font("",Font.BOLD,20));
+        g.setColor(Color.WHITE);
         //main title
         try {
             if (this.algo.isConnected()) {
-                gd.drawString("Number of vertices: " + this.graph.nodeSize() + " ,  " + "Number of edges: " + this.graph.edgeSize() + " ,  " + "Is Connected: " + this.algo.isConnected() + "  , " + "The center: " + this.algo.center().getKey(), this.getWidth() / 2 - 400, this.getHeight() / 15);
+                gd.drawString( "Number of edges: " + this.graph.edgeSize() + "  /  " + "Is Connected: " + this.algo.isConnected() + "  /  " + "The center: " + this.algo.center().getKey(), this.getWidth() / 2 - 400, this.getHeight() / 15);
+               // gd.drawString("Number of vertices: " + this.graph.nodeSize() + " ,  " + "Number of edges: " + this.graph.edgeSize() + " ,  " + "Is Connected: " + this.algo.isConnected() + "  , " + "The center: " + this.algo.center().getKey(), this.getWidth() / 2 - 400, this.getHeight() / 15);
             }
             else
-                gd.drawString("Number of vertices: "+this.graph.nodeSize()+" ,  "+"Number of edges: "+this.graph.edgeSize() +" ,  "+"Is Connected: "+this.algo.isConnected() +"  , "+"The center: "+this.algo.center() , this.getWidth() / 2-400, this.getHeight() / 15);
+                gd.drawString("Number of edges: "+this.graph.edgeSize() +"  /  "+"Is Connected: "+this.algo.isConnected() +"  /  "+"The center: "+this.algo.center() , this.getWidth() / 2-400, this.getHeight() / 15);
         }
         catch (Exception e){
-            gd.drawString("Number of vertices: "+this.graph.nodeSize()+" ,  "+"Number of edges: "+this.graph.edgeSize()  , this.getWidth() / 2-400, this.getHeight() / 15);
+            gd.drawString("Number of edges: "+this.graph.edgeSize()  , this.getWidth() / 2-400, this.getHeight() / 15);
         }
 
-        this.setBorder(BorderFactory.createTitledBorder("Directed graph"));
+        //this.setBorder(BorderFactory.createTitledBorder("Directed graph"));
         double j = ((this.getHeight() * this.getWidth())/4000 );/// 4000
         double k = ((this.getHeight() * this.getWidth())/100000);/// 100000
-        Range2D paint = new Range2D(new Range(k, this.getWidth() - 100 ), new Range(this.getHeight() - 100, j));
+        Range2D paint = new Range2D(new Range(k+100, this.getWidth() - 100 ), new Range(this.getHeight() - 100, j+100));
         this.range = this.range(this.graph, paint);
         Iterator<NodeData> iter_node =this.graph.nodeIter();
         while (iter_node.hasNext()){
@@ -79,27 +82,52 @@ public class Graphs extends JPanel {
         graphics.setColor(Color.BLUE);
         GeoLocation p = node.getLocation();
         GeoLocation f = this.range.world2frame(p);
-        graphics.fillOval((int) f.x() -5, (int) f.y() -5, 15, 15);
-       // graphics.setFont(new Font("",Font.BOLD,15));
-       // graphics.setColor(new Color(4, 5, 5));
+        graphics.fillOval((int) f.x() -10, (int) f.y() -10, 20, 20);
+        graphics.setFont(new Font("",Font.BOLD,15));
         graphics.setColor(new Color(46, 239, 239));
-        graphics.drawString("" + node.getKey(), (int) f.x(), (int) f.y() - 20);
+        graphics.drawString("" + node.getKey(), (int) f.x()-5, (int) f.y()+5 );
     }
 
     //Draws a Edge
     public void Edge(EdgeData edge, Graphics graphics) {
-      //  graphics.setColor(Color.GREEN);
+
         graphics.setColor(new Color(255, 0, 0));
         GeoLocation node_src = this.graph.getNode(edge.getSrc()).getLocation();
         GeoLocation node_dest = this.graph.getNode(edge.getDest()).getLocation();
         GeoLocation v1 = this.range.world2frame(node_src);
         GeoLocation v2 = this.range.world2frame(node_dest);
-        graphics.drawLine((int) v1.x(), (int) v1.y(), (int) v2.x(), (int) v2.y());
+        graphics.setFont(new Font("",Font.ITALIC,50));
+        drawArrowLine(graphics,(int) v1.x(), (int) v1.y(), (int) v2.x(), (int) v2.y(),15,5);
 
-       // graphics.setFont(new Font("",Font.TRUETYPE_FONT,10));
-      //  graphics.setColor(Color.green);
-       // graphics.drawString("(Src:"+this.graph.getNode(edge.getSrc()).getKey()+", Dest:"+graph.getNode(edge.getDest()).getKey()+",Wei:"+(""+edge.getWeight()).subSequence(0,4)+")",(int)((v1.x()+v2.x())/2),(int)((v1.y()+v2.y())/2));
+        graphics.setFont(new Font("",Font.BOLD,10));
+        graphics.setColor(Color.green);
+
+        graphics.drawString("("+this.graph.getNode(edge.getSrc()).getKey()+","+graph.getNode(edge.getDest()).getKey()+","+(""+edge.getWeight()).subSequence(0,4)+")",(int)(v1.x()*0.25+v2.x()*0.75),(int)(v1.y()*0.25+v2.y()*0.75));
+        Node(this.graph.getNode(edge.getSrc()),graphics) ;
+        Node(this.graph.getNode(edge.getDest()),graphics) ;
     }
+
+    private void drawArrowLine(Graphics g, int x1, int y1, int x2, int y2, int d, int h) {
+        int dx = x2 - x1, dy = y2 - y1;
+        double D = Math.sqrt(dx*dx + dy*dy);
+        double xm = D - d, xn = xm, ym = h, yn = -h, x;
+        double sin = dy / D , cos = dx / D ;
+
+        x = xm*cos - ym*sin + x1;
+        ym = xm*sin + ym*cos + y1;
+        xm = x;
+
+        x = xn*cos - yn*sin + x1;
+        yn = xn*sin + yn*cos + y1;
+        xn = x;
+
+        int[] xpoints = {x2, (int) xm, (int) xn};
+        int[] ypoints = {y2, (int) ym, (int) yn};
+
+        g.drawLine(x1, y1, x2, y2);
+        g.fillPolygon(xpoints, ypoints, 3);
+    }
+
 
     // @author boaz_benmoshe
     private Range2D GraphRange(DirectedWeightedGraph g) {
