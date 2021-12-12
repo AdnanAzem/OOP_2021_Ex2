@@ -3,6 +3,7 @@
 Directed Wieghted Graph:
 ![DWG](https://user-images.githubusercontent.com/88532380/145715653-ba32db47-5d88-4293-a449-5cc6a5711977.png)
 
+<hr></hr>
 
 Project:
 
@@ -10,6 +11,7 @@ this project represents an directional and weighted graph that support a large n
 based on afficient cimpact representation. The project contains 1 part: api - the data struct
 and the algorithms methods.
 
+<hr></hr>
 
 Classes:
 
@@ -61,6 +63,8 @@ DirectedWeightedGraphAlgorithms: This interface represents a Directed (positive)
 		shortestPathDist: returns the length of the shortest path between src to dest
 		save: save the graph to the given file name in JSON format
 		load: load a graph to this graph algorithm by JSON format
+	
+<hr></hr>
 
 Results:
 
