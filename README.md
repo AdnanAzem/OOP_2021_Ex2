@@ -68,7 +68,86 @@ DirectedWeightedGraphAlgorithms: This interface represents a Directed (positive)
 
 Results:
 
-[Results.pdf](https://github.com/AdnanAzem/OOP_2021_Ex2/files/7698869/Results.pdf)
+<table>
+  <tr>
+    <th>DirectedWeightedGraphAlgorethms</th>
+    <th>1000 Nodes</th>
+    <th>10000 Nodes</th>
+    <th>100000 Nodes</th>
+    <th>1000000 Nodes</th>
+  </tr>
+  <tr>
+    <th>init</th>
+    <th>20 ms</th>
+    <th>1 ms </th>
+    <th>1 ms </th>
+    <th>1 ms </th>
+  </tr>
+  <tr>
+    <th>isConnected</th>
+    <th>25 ms</th>
+    <th>39 ms</th>
+    <th>314 ms</th>
+    <th>1 sec 552 ms</th>
+  </tr>
+  <tr>
+    <th>copy</th>
+    <th>46 ms</th>
+    <th>74 ms</th>
+    <th>628 ms</th>
+    <th>1 ms</th>
+  </tr>
+  <tr>
+    <th>geGraph</th>
+    <th>18 ms</th>
+    <th>1 ms</th>
+    <th>1 ms</th>
+    <th>1 ms</th>
+  </tr>
+  <tr>
+    <th>center</th>
+    <th>15 min 37 sec</th>
+    <th>OutOfMemoryError</th>
+    <th>OutOfMemoryError</th>
+    <th>OutOfMemoryError</th>
+  </tr>
+  <tr>
+    <th>shortestPath</th>
+    <th>193 ms</th>
+    <th>104 ms</th>
+    <th>972 ms</th>
+    <th>1 min 25 sec</th>
+  </tr>
+  <tr>
+    <th>shortestPathDist</th>
+    <th>22 ms</th>
+    <th>32 ms</th>
+    <th>1 sec 15 ms</th>
+    <th>2 min 8 sec</th>
+  </tr>
+  <tr>
+    <th>tsp</th>
+    <th>431 ms</th>
+    <th>3 sec 842 ms</th>
+    <th>OutOfMemoryError</th>
+    <th>OutOfMemoryError</th>
+  </tr>
+  <tr>
+    <th>save</th>
+    <th>110 ms</th>
+    <th>435 ms</th>
+    <th>4 sec 859 ms</th>
+    <th>OutOfMemoryError</th>
+  </tr>
+  <tr>
+    <th>load</th>
+    <th>155 ms</th>
+    <th>371 ms</th>
+    <th>3 sec 298 ms</th>
+    <th>OutOfMemoryError</th>
+  </tr>
+</table>
+
 
 
 
