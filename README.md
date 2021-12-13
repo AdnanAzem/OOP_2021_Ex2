@@ -148,7 +148,7 @@ Results:
   </tr>
 </table>
 
-<br></br>
+<hr></hr>
 
 Notice:
 
